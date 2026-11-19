@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Test and evidence
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pinned dependencies
+        run: pip install --no-cache-dir -r requirements.txt
+
+      - name: Run test suite
+        run: python -m pytest tests -v
+
+      - name: Generate evidence package
+        run: ./smoke_and_evidence.sh
+
+      - name: Publish evidence package
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-${{ github.sha }}
+          path: EVIDENCE/
+          retention-days: 90
+
+  container:
+    name: Container build and live check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t container-reference:${{ github.sha }} .
+
+      - name: Confirm non-root runtime
+        run: |
+          UID_IN_IMAGE=$(docker run --rm --entrypoint id container-reference:${{ github.sha }} -u)
+          echo "container uid: ${UID_IN_IMAGE}"
+          test "${UID_IN_IMAGE}" -ne 0
+
+      - name: Start container
+        run: |
+          docker run -d --name svc -p 8080:8080 container-reference:${{ github.sha }}
+          for _ in $(seq 1 40); do
+            if curl -fsS http://127.0.0.1:8080/healthz >/dev/null 2>&1; then exit 0; fi
+            sleep 1
+          done
+          docker logs svc
+          exit 1
+
+      - name: Exercise endpoints
+        run: |
+          curl -fsS http://127.0.0.1:8080/healthz
+          echo
+          curl -fsS http://127.0.0.1:8080/readyz
+          echo
+          curl -fsS -X POST http://127.0.0.1:8080/v1/convert \
+            -H 'Content-Type: application/json' \
+            --data '{"value":100.0,"unit":"c"}'
+          echo
+
+      - name: Confirm invalid input is rejected
+        run: |
+          STATUS=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8080/v1/convert \
+            -H 'Content-Type: application/json' \
+            --data '{"value":10.0,"unit":"k"}')
+          echo "status: ${STATUS}"
+          test "${STATUS}" = "422"
+
+      - name: Stop container
+        if: always()
+        run: docker rm -f svc || true

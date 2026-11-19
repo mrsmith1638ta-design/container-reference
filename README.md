@@ -1,5 +1,7 @@
 # Container Reference Service
 
+[![CI](https://github.com/mrsmith1638ta-design/container-reference/actions/workflows/ci.yml/badge.svg)](https://github.com/mrsmith1638ta-design/container-reference/actions/workflows/ci.yml)
+
 A minimal FastAPI service published as a reference for how I containerize and verify deployments. The application itself is deliberately trivial — a unit-conversion endpoint. What it demonstrates is the delivery standard applied to it.
 
 ## What ships with every build
@@ -10,6 +12,7 @@ A minimal FastAPI service published as a reference for how I containerize and ve
 | `tests/` | Behavioural test suite covering success paths, boundary rejection, malformed payloads and unknown routes |
 | `smoke_and_evidence.sh` | Runs the suite, boots the server, exercises live endpoints, writes a timestamped evidence folder |
 | `EVIDENCE/` | Environment fingerprint, SHA-256 source hashes, test output, captured live HTTP session |
+| `.github/workflows/ci.yml` | Runs the suite, regenerates evidence as a retained artifact, builds the image, asserts non-root runtime and verifies live endpoints including rejection behaviour |
 
 The evidence folder is the point. A deployment is not complete because it was handed over — it is complete because there is a reproducible artifact showing the service ran and behaved as specified, with the exact source state that produced it recorded by hash.
 
