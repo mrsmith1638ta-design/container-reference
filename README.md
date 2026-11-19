@@ -1,7 +1,5 @@
 # Container Reference Service
 
-[![CI](https://github.com/mrsmith1638ta-design/container-reference/actions/workflows/ci.yml/badge.svg)](https://github.com/mrsmith1638ta-design/container-reference/actions/workflows/ci.yml)
-
 A minimal FastAPI service published as a reference for how I containerize and verify deployments. The application itself is deliberately trivial — a unit-conversion endpoint. What it demonstrates is the delivery standard applied to it.
 
 ## What ships with every build
