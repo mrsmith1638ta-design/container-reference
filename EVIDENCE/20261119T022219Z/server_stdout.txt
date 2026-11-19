@@ -1,0 +1,14 @@
+[2026-11-19 02:22:20 +0000] [297] [INFO] Starting gunicorn 23.0.0
+[2026-11-19 02:22:20 +0000] [297] [INFO] Listening at: http://127.0.0.1:8080 (297)
+[2026-11-19 02:22:20 +0000] [297] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2026-11-19 02:22:20 +0000] [301] [INFO] Booting worker with pid: 301
+[2026-11-19 02:22:20 +0000] [301] [INFO] Started server process [301]
+[2026-11-19 02:22:20 +0000] [301] [INFO] Waiting for application startup.
+[2026-11-19 02:22:20 +0000] [301] [INFO] Application startup complete.
+[2026-11-19 02:22:21 +0000] [297] [INFO] Handling signal: term
+[2026-11-19 02:22:21 +0000] [301] [INFO] Shutting down
+[2026-11-19 02:22:21 +0000] [301] [INFO] Waiting for application shutdown.
+[2026-11-19 02:22:21 +0000] [301] [INFO] Application shutdown complete.
+[2026-11-19 02:22:21 +0000] [301] [INFO] Finished server process [301]
+[2026-11-19 02:22:21 +0000] [297] [ERROR] Worker (pid:301) was sent SIGTERM!
+[2026-11-19 02:22:21 +0000] [297] [INFO] Shutting down: Master

@@ -1,0 +1,24 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-8.3.4, pluggy-1.6.0 -- /usr/local/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/claude/container-reference
+plugins: platformdirs-4.13.5, anyio-4.15.1
+collecting ... collected 9 items
+
+tests/test_app.py::test_healthz_returns_ok PASSED                        [ 11%]
+tests/test_app.py::test_readyz_reports_uptime PASSED                     [ 22%]
+tests/test_app.py::test_celsius_to_fahrenheit PASSED                     [ 33%]
+tests/test_app.py::test_fahrenheit_to_celsius PASSED                     [ 44%]
+tests/test_app.py::test_unsupported_unit_rejected PASSED                 [ 55%]
+tests/test_app.py::test_value_above_bound_rejected PASSED                [ 66%]
+tests/test_app.py::test_missing_field_rejected PASSED                    [ 77%]
+tests/test_app.py::test_malformed_payload_rejected PASSED                [ 88%]
+tests/test_app.py::test_unknown_route_returns_404 PASSED                 [100%]
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.13/site-packages/starlette/testclient.py:40
+  /usr/local/lib/python3.13/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================= 9 passed, 1 warning in 0.34s =========================

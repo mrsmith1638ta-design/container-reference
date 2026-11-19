@@ -1,0 +1,5 @@
+timestamp_utc=20261119T022219Z
+host_kernel=Linux 6.18.44-fc-v653 x86_64
+python_version=Python 3.13.18
+pip_version=pip 26.2.1
+working_root=/home/claude/container-reference

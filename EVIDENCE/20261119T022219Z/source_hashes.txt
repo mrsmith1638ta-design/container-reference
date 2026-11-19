@@ -1,0 +1,4 @@
+515baa571be3bdacfd7b57ce61f9bc36a312fdb5ea50537646d2591d352edc63  /home/claude/container-reference/Dockerfile
+cca082588d271861ce8c8a81c2589aabbe2c762427ff25c3a781d374472402e8  /home/claude/container-reference/app/main.py
+ffb14606bad5d1debc4f93bd7110c17c06dbbc37f12be79029abc66b9944ea8b  /home/claude/container-reference/requirements.txt
+3c7c685882ac2003f73a1d755461a7bb34d706e9ff13e20e729bef092f15b728  /home/claude/container-reference/tests/test_app.py
